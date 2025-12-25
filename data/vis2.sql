@@ -19,11 +19,11 @@ SELECT
 FROM Sales.SalesOrderDetail AS sod
 
 -- Testa att det ovan stämmer:
-SELECT SUM(sod.UnitPrice * sod.OrderQty) AS BikeRevenue
+SELECT SUM(sod.LineTotal) AS BikeRevenue
 FROM Sales.SalesOrderDetail AS sod
-JOIN Production.Product AS p ON sod.ProductID = p.ProductID
-JOIN Production.ProductSubcategory AS ps ON p.ProductSubcategoryID = ps.ProductSubcategoryID
-JOIN Production.ProductCategory AS pc ON ps.ProductCategoryID = pc.ProductCategoryID
+INNER JOIN Production.Product AS p ON sod.ProductID = p.ProductID
+INNER JOIN Production.ProductSubcategory AS ps ON p.ProductSubcategoryID = ps.ProductSubcategoryID
+INNER JOIN Production.ProductCategory AS pc ON ps.ProductCategoryID = pc.ProductCategoryID
 WHERE pc.Name = 'Bikes'
 
 
