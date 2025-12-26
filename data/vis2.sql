@@ -17,14 +17,14 @@ ORDER BY TotalRevenue ASC
 SELECT
     SUM(sod.LineTotal) AS TotalRevenue
 FROM Sales.SalesOrderDetail AS sod
-
+ 
 -- Testa att det ovan stämmer:
 SELECT SUM(sod.LineTotal) AS BikeRevenue
 FROM Sales.SalesOrderDetail AS sod
 INNER JOIN Production.Product AS p ON sod.ProductID = p.ProductID
 INNER JOIN Production.ProductSubcategory AS ps ON p.ProductSubcategoryID = ps.ProductSubcategoryID
 INNER JOIN Production.ProductCategory AS pc ON ps.ProductCategoryID = pc.ProductCategoryID
-WHERE pc.Name = 'Bikes'
+WHERE pc.Name = 'Bikes' 
 
 
 -- Men vilken valuta är det som gäller? 
