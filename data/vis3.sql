@@ -11,6 +11,18 @@ SELECT
     MAX(soh.OrderDate) AS till
 FROM Sales.SalesOrderHeader AS soh
 
+--2022
+SELECT
+    MONTH(soh.OrderDate) AS OrderMonth,
+    SUM(soh.SubTotal) AS TotalRevenue    
+FROM Sales.SalesOrderHeader AS soh
+WHERE soh.OrderDate >= '2022-01-01'
+    AND soh.OrderDate < '2023-01-01'
+GROUP BY 
+    MONTH(soh.OrderDate)
+ORDER BY 
+    OrderMonth
+
 --2023
 SELECT
     MONTH(soh.OrderDate) AS OrderMonth,
@@ -62,13 +74,12 @@ SELECT
     COUNT(*) AS AntalOrdrar
 FROM Sales.SalesOrderHeader
 
--- Antal ordrar per månad (tar ej med 2022 pga ej komplett år)
+-- Antal ordrar per månad
 SELECT
     YEAR(OrderDate) AS OrderYear,
     MONTH(OrderDate) AS OrderMonth,
     COUNT(*) AS OrderCount
 FROM Sales.SalesOrderHeader
-WHERE OrderDate >= '2023-01-01'
 GROUP BY YEAR(OrderDate), MONTH(OrderDate)
 ORDER BY OrderYear, OrderMonth
 
