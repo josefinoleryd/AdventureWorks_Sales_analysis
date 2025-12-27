@@ -60,14 +60,16 @@ ORDER BY
     OrderMonth
 
 -- Visa alla ordrar från juni 2025
+-- Sortera på DESC för att se om det har lagts ordrar även i slutet av månaden
 SELECT * FROM Sales.SalesOrderHeader
-WHERE OrderDate >= '2025-06-01' AND OrderDate < '2025-06-30'
+WHERE OrderDate >= '2025-06-01' AND OrderDate < '2025-07-01'
+ORDER BY OrderDate DESC
 
 -- Räkna antalet ordrar från juni 2025
 SELECT
     COUNT(*) AS AntalOrdrar
 FROM Sales.SalesOrderHeader
-WHERE OrderDate >= '2025-06-01' AND OrderDate < '2025-06-30'
+WHERE OrderDate >= '2025-06-01' AND OrderDate < '2025-07-01'
 
 -- Totalt antal ordrar 
 SELECT
