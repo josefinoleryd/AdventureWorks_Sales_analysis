@@ -32,24 +32,7 @@ GROUP BY
 SELECT
     st.Name AS Region,
     CASE 
-        When c.StoreID IS NOT NULL THEN 'Företagskund'
-        ELSE 'PrivatPerson'
-    END AS Kundtyp,
-    SUM(soh.SubTotal) AS TotalFörsäljning,
-    COUNT(DISTINCT soh.SalesOrderID) AS AntalOrdrar,
-    SUM(soh.SubTotal) / COUNT(DISTINCT soh.SalesOrderID) AS AOV
-FROM Sales.SalesTerritory AS st
-INNER JOIN Sales.Customer c ON st.TerritoryID = c.TerritoryID
-INNER JOIN Sales.SalesOrderHeader soh ON c.CustomerID = soh.CustomerID
-GROUP BY 
-    st.Name,
-    CASE WHEN c.StoreID IS NOT NULL THEN 'Företagskund' ELSE 'PrivatPerson' END
-ORDER BY Region, Kundtyp
-
-SELECT
-    st.Name AS Region,
-    CASE 
-        When c.StoreID IS NOT NULL THEN 'Företagskund'
+        WHEN c.StoreID IS NOT NULL THEN 'Företagskund'
         ELSE 'PrivatPerson'
     END AS Kundtyp,
     SUM(soh.SubTotal) AS TotalFörsäljning,
