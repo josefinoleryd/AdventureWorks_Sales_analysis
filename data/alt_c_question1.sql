@@ -23,7 +23,6 @@ FROM Sales.SalesOrderHeader
 GROUP BY CustomerID
 ORDER BY LastOrderDate ASC
 
-
 SELECT
     ChurnYear,
     COUNT(*) AS NumberOfChurnedCustomers
@@ -37,3 +36,37 @@ FROM (
 ) AS CustomerChurn
 GROUP BY ChurnYear
 ORDER BY ChurnYear
+
+SELECT MAX(OrderDate) AS MaxOrderDate
+FROM Sales.SalesOrderHeader
+
+-- Per månad
+SELECT
+    DATEFROMPARTS(YEAR(LastOrderDate), MONTH(LastOrderDate), 1) AS ChurnMonth,
+    COUNT(*) AS NumberOfChurnedCustomers
+FROM (
+    SELECT
+        CustomerID,
+        MAX(OrderDate) AS LastOrderDate
+    FROM Sales.SalesOrderHeader
+    GROUP BY CustomerID
+    HAVING MAX(OrderDate) < '2024-06-01'
+) AS ChurnedCustomers
+GROUP BY DATEFROMPARTS(YEAR(LastOrderDate), MONTH(LastOrderDate), 1)
+ORDER BY ChurnMonth
+
+
+
+SELECT
+    DATEFROMPARTS(YEAR(LastOrderDate), MONTH(LastOrderDate), 1) AS ChurnMonth,
+    COUNT(*) AS NumberOfChurnedCustomers
+FROM (
+    SELECT
+        CustomerID,
+        MAX(OrderDate) AS LastOrderDate
+    FROM Sales.SalesOrderHeader
+    GROUP BY CustomerID
+    HAVING MAX(OrderDate) < '2024-06-01'
+) AS ChurnedCustomers
+GROUP BY DATEFROMPARTS(YEAR(LastOrderDate), MONTH(LastOrderDate), 1)
+ORDER BY ChurnMonth
